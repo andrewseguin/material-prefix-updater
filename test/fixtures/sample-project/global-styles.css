@@ -2,6 +2,6 @@
  * This is a global stylesheet in the sample application.
  */
 
-md-sidenav-container {
+mat-sidenav-container {
   background: red;
 }

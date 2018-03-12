@@ -11,16 +11,16 @@ export class AppComponent {}
   selector: 'md-test-component',
   template: `
     <span>This is a test</span>
-    <md-slide-toggle>Test</md-slide-toggle>
+    <mat-slide-toggle>Test</mat-slide-toggle>
   `,
   styles: [
     `
-      md-checkbox {
+      mat-checkbox {
         font-weight: bold;
       }
     `,
     `
-      button[md-button] {
+      button[mat-button] {
         text-transform: none;
       }
     `
