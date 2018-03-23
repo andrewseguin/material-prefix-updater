@@ -10,8 +10,25 @@ export class AppComponent {}
 @Component({
   selector: 'md-test-component',
   template: `
-    <span>This is a test</span>
-    <mat-slide-toggle>Test</mat-slide-toggle>
+    <ng-template cdk-connected-overlay [open]="isOpen" [width]="width" [height]="height"
+                 [cdkConnectedOverlayOrigin]="triggerOverride || trigger"
+                 [hasBackdrop]="hasBackdrop" backdropClass="mat-test-class"
+                 (backdropClick)="backdropClickHandler($event)" [offsetX]="offsetX" [offsetY]="offsetY"
+                 (positionChange)="positionChangeHandler($event)" (attach)="attachHandler()"
+                 (detach)="detachHandler()" [minWidth]="minWidth" [minHeight]="minHeight"
+                 [cdkConnectedOverlayPositions]="positionOverrides">
+      <p>Menu content</p>
+    </ng-template>
+    
+    <ng-template [open]="isOpen" [width]="width" [height]="height"
+                 [cdkConnectedOverlayOrigin]="triggerOverride || trigger"
+                 [hasBackdrop]="hasBackdrop" backdropClass="mat-test-class"
+                 (backdropClick)="backdropClickHandler($event)" [offsetX]="offsetX" [offsetY]="offsetY"
+                 (positionChange)="positionChangeHandler($event)" (attach)="attachHandler()"
+                 (detach)="detachHandler()" [minWidth]="minWidth" [minHeight]="minHeight"
+                 [cdkConnectedOverlayPositions]="positionOverrides">
+      <p>Menu content</p>
+    </ng-template>
   `,
   styles: [
     `
@@ -26,4 +43,6 @@ export class AppComponent {}
     `
   ]
 })
-export class TestComponent {}
+export class TestComponent {
+  isOpen: boolean;
+}

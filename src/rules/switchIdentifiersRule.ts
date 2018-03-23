@@ -44,7 +44,7 @@ export class SwitchIdentifiersWalker extends ProgramAwareRuleWalker {
 
     // For identifiers that aren't listed in the className data, the whole check can be
     // skipped safely.
-    if (!classNames.some(data => data.md === identifier.text)) {
+    if (!classNames.some(data => data.old === identifier.text)) {
       return;
     }
 
@@ -83,16 +83,16 @@ export class SwitchIdentifiersWalker extends ProgramAwareRuleWalker {
 
   /** Creates a failure and replacement for the specified identifier. */
   private createIdentifierFailure(identifier: ts.Identifier, symbol: ts.Symbol) {
-    const classData = classNames.find(data => data.md === symbol.name);
+    let classData = classNames.find(data => data.old === symbol.name || data.old === identifier.text);
 
     if (!classData) {
-      console.error(`Could not find updated prefix for identifier "${identifier.getText()}" in ` + 
+      console.error(`Could not find updated prefix for identifier "${identifier.getText()}" in ` +
           ` in file ${this._getRelativeFileName()}.`);
       return;
     }
 
     const replacement = this.createReplacement(
-        identifier.getStart(), identifier.getWidth(), classData.mat);
+        identifier.getStart(), identifier.getWidth(), classData.replacement);
 
     this.addFailureAtNode(identifier, failureMessage, replacement);
   }

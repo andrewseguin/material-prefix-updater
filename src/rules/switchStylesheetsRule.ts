@@ -72,11 +72,11 @@ export class SwitchStylesheetsWalker extends ComponentWalker {
    */
   private replacePrefixesInStylesheet(stylesheetContent: string): string {
     [...elementSelectors, ...attributeSelectors].forEach(selector => {
-      stylesheetContent = replaceAll(stylesheetContent, selector.md, selector.mat);
+      stylesheetContent = replaceAll(stylesheetContent, selector.old, selector.replacement);
     });
 
     inputNames.forEach(input => {
-      stylesheetContent = replaceAll(stylesheetContent, `[${input.md}]`, `[${input.mat}]`);
+      stylesheetContent = replaceAll(stylesheetContent, `[${input.old}]`, `[${input.replacement}]`);
     });
 
     return stylesheetContent;

@@ -5,7 +5,7 @@ import {
 import {ComponentWalker} from '../tslint/component-walker';
 import {ExternalResource} from '../tslint/component-file';
 import * as ts from 'typescript';
-import {replaceAll} from '../typescript/literal';
+import {replaceAll, replaceAllInputsInTag} from '../typescript/literal';
 
 /**
  * Message that is being sent to TSLint if there is something in the template that still use an
@@ -56,16 +56,20 @@ export class SwitchTemplatesWalker extends ComponentWalker {
       // Being more aggressive with that replacement here allows us to also handle inline
       // style elements. Normally we would check if the selector is surrounded by the HTML tag
       // characters.
-      templateContent = replaceAll(templateContent, selector.md, selector.mat);
+      templateContent = replaceAll(templateContent, selector.old, selector.replacement);
     });
 
     attributeSelectors.forEach(attribute => {
       templateContent = replaceAll(templateContent,
-          removeAttributeBackets(attribute.md), removeAttributeBackets(attribute.mat));
+          removeAttributeBackets(attribute.old), removeAttributeBackets(attribute.replacement));
     });
 
-    [...inputNames, ...exportAsNames].forEach(selector => {
-      templateContent = replaceAll(templateContent, selector.md, selector.mat);
+    inputNames.forEach(input => {
+      templateContent = replaceAllInputsInTag(templateContent, input.old, input.replacement, input.tag);
+    });
+
+    exportAsNames.forEach(selector => {
+      templateContent = replaceAll(templateContent, selector.old, selector.replacement);
     });
 
     return templateContent;

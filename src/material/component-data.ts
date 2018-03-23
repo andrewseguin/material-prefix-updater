@@ -1,7 +1,8 @@
 /** Interface that describes a collection of component information. */
 export interface MaterialNameData {
-  md: string;
-  mat: string;
+  old: string;
+  replacement: string;
+  tag?: string;
 }
 
 /** Export the class name data as part of a module. This means that the data is cached. */

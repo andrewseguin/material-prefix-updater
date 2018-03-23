@@ -26,14 +26,14 @@ export class SwitchPropertyNamesWalker extends RuleWalker {
       this.visitPropertyAccessExpression(prop.expression as ts.PropertyAccessExpression);
     }
 
-    const propertyData = propertyNames.find(name => prop.name.getText() === name.md);
+    const propertyData = propertyNames.find(name => prop.name.getText() === name.old);
 
     if (!propertyData) {
       return;
     }
 
     const replacement = this.createReplacement(prop.name.getStart(),
-        prop.name.getWidth(), propertyData.mat);
+        prop.name.getWidth(), propertyData.replacement);
 
     this.addFailureAtNode(prop.name, failureMessage, replacement);
   }

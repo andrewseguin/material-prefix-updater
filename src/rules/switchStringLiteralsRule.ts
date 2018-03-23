@@ -31,12 +31,12 @@ export class SwitchStringLiteralsWalker extends RuleWalker {
     let updatedText = stringLiteral.getText();
 
     elementSelectors.forEach(selector => {
-      updatedText = replaceAll(updatedText, selector.md, selector.mat);
+      updatedText = replaceAll(updatedText, selector.old, selector.replacement);
     });
 
     attributeSelectors.forEach(attribute => {
       updatedText = replaceAll(updatedText,
-          removeAttributeBackets(attribute.md), removeAttributeBackets(attribute.mat));
+          removeAttributeBackets(attribute.old), removeAttributeBackets(attribute.replacement));
     });
 
     if (updatedText !== stringLiteral.getText()) {
